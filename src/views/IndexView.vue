@@ -51,7 +51,7 @@
     const wheelSettings = configRulette(); 
     // <!-- <h1>{{ $route.params.id }}</h1> -->
     const typeeUser = route.params.id;
-    const launchWheel = () => {
+    const launchWheel = () => { 
       wheel.value.launchWheel();
     }
     const wheelEndedCallback = (evt) => {
