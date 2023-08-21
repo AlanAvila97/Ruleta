@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.d-none{
+  /* display: none; */
+}
+body {
+  background-image: url(https://canalonce.mx/REST/data/images/back_grad_tic.png);
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  height: 100vh;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2;
+}
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  height: 100%;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  background: url(https://canalonce.mx/REST/data/images/back_grad_tic.png);
+  background-size: 100% 100%;
+  background-attachment: fixed;
+}
+.section-roulette {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.section-roulette .wheel {
+  user-select: none;
+}
+.section-roulette h1 {
+  font-size: 3rem;
+  color: aliceblue;
+}
+.wheel {
+  color: rgb(255, 255, 255);
+  font-size: calc(1.5rem, 1vh);
+  font-weight: bold;
+  background: linear-gradient(
+    132deg,
+    rgba(173, 60, 226, 1) 16%,
+    rgba(252, 71, 162, 1) 36%,
+    rgba(252, 71, 162, 1) 63%,
+    rgb(174 32 136) 78%
+  ) !important;
+}
+.wheel .content {
+  padding-top: 3rem !important;
+}
+.wheel-container-border {
+  border: 1rem solid #fff !important;
+}
+.wheel-item {
+  background-color: transparent !important;
+  border: 2px solid #fff !important;
+}
+.wheel-base-container .wheel-base-indicator {
+  text-align: center;
+}
+.wheel-base-container {
+  border: 1px solid #ffffff00 !important;
+}
+/* .wheel .wheel-item:nth-child(odd) {
+  background: linear-gradient(90deg, rgba(173,60,226,1) 0%, rgba(252,71,162,1));
+}
+.wheel .wheel-item:nth-child(even) {
+  background: linear-gradient(to right, rgba(252,71,162,1), rgb(174 32 136));
+} */
+.arrow-roullete {
+  position: absolute;
+  top: 0rem;
+  background: transparent;
+  border-top-right-radius: 1px;
+}
+.arrow-roullete img {
+  width: 100%;
+  height: auto;
+}
