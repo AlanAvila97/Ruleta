@@ -1,5 +1,5 @@
 <template>
-    <main id="wrapper" class="bg-home index">
+    <main id="wrapper" class="bg-home buttons wrapper-2">
       <section class="section-roulette">
 
         <div class="content-buttons">
@@ -7,7 +7,6 @@
             <button class="btn-actions" type="button" data-status="2" data-numero="ZK0j79ShW7RivQ4b8Pfm">Mostrar / ocultar</button>
             <button class="btn-actions" type="button" data-status="3" data-numero="ZK0j79ShW7RivQ4b8Pfm">Regresar</button>
         </div>
-  
       </section>
     </main>
   </template>
@@ -36,10 +35,37 @@
   </script>
   <style scoped>
   #wrapper {
-    display: flex;
+    display: none;
+  }
+  .wrapper-2 {
+    display: flex !important;;
     align-items: center;
     height: 100vh;
     width: 100%;
+  }
+
+  .content-buttons{
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+    max-width: 1120px;
+    justify-content: center;
+  }
+  .content-buttons .btn-actions{
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    background: rgba(252, 71, 162, 1);
+    padding: 1rem;
+    width: max(200px, 30%);
+    height: 200px;
+    max-height: 200px;
+    font-size: calc(1rem + 0.5vw);
+  }
+  .content-buttons .btn-actions:focus{
+    box-shadow: 0px 0px 3px 5px #00000061;
   }
   </style>
   

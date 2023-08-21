@@ -1,5 +1,6 @@
 import { ref } from "vue";
 import { defineStore } from 'pinia'
+import { useRoute, useRouter } from "vue-router";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-app.js";
 import {
   getFirestore,
@@ -31,6 +32,8 @@ export const onGetTasks = (callback) =>
 export const updateTurno=(id,newFields)=>
              updateDoc(doc(db, "jugadas", id), newFields);     
 //  
+const router = useRouter();
+
 export const useRuleta = defineStore('useRuleta', () => {
     const getItems = () => {
         return [
@@ -62,7 +65,7 @@ export const useRuleta = defineStore('useRuleta', () => {
                     // baseBackground: "",
                     baseBackground: "",
                     baseHtmlContent:
-                        "<img class='' src='https://canalonce.mx/REST/data/images/ruleta-flecha-1.webp' alt='' srcset=''>",
+                        "<img class='' src='https://canalonce.mx/REST/data/images/ruleta-flecha-3.png' alt='' srcset=''>",
                 };
     }
     const parseoTexto = (cadena) => {
@@ -119,31 +122,50 @@ export const useRuleta = defineStore('useRuleta', () => {
       });
       if(answer.dataset.status == 1 ){
           answer.dataset.status = 0;        
-        answer.classList.remove('d-none');
+          answer.classList.remove('d-none');
       }else{
           answer.dataset.status = 1;        
-        question.classList.remove('d-none');
+          question.classList.remove('d-none');
       }
+      setTimeout(updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm') , 1000);
     }
     const getElementByClass = (element) => {
       return document.querySelector(`.${element}`)
+    }
+    const backAdmin = () => {
+      let backHome = getElementByClass(`back-home`);   
+      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+      backHome.click();
+      console.log(); 
+      // cl
+      // if(!backHome){
+      // }
     }
     const getDataFirebase = () => {
       onGetTasks((querySnapshot) => {
         let action = getElementByClass(`action-user`);    
         let ruleta = getElementByClass(`ruleta-prueba`);    
+        
         // hamburger.addEventListener("click", change);
-
         querySnapshot.forEach((doc) => {
           const turnos = doc.data();
-          console.log(turnos.status);
           action.value = turnos.status;
-          if(turnos.status == '1'){
-            ruleta.click();
-          }                    
+          switch (turnos.status) {
+            case '1':
+              ruleta.click();
+            case '2':
+                showAnswer();
+              break;
+            case '3':
+                backAdmin();
+              break;          
+            default:
+              break;
+          }                 
         });
       });
     }
+    
     const updateStatus = () => {
       const actualizarTurno = document.querySelectorAll(".btn-actions");      
             actualizarTurno.forEach((btn) =>

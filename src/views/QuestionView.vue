@@ -22,6 +22,9 @@
                 </div>
             </div>
         </div>
+        <div class="visibility-hidden">
+            <button class="back-home" @click="backAdmin"></button>
+        </div>
         </section>
     </main>
   </template>
@@ -37,12 +40,11 @@
     import { useRuleta } from '../stores/dataRuleta'
     // 
     const dataRuleta = useRuleta();
-    const { showAnswer } = dataRuleta;  
+    const { showAnswer, updateSimple } = dataRuleta;  
     // 
     const route = useRoute();
     const router = useRouter();
 
-    const typeUser = route.params.user;
     const idQuestion = route.params.id;
 
     const animationItem = () =>{
@@ -60,9 +62,9 @@
             });
     }    
     const backAdmin = () => {
-        if( typeUser == 1){
-            router.push("/"+typeUser); 
-        }
+        setTimeout(function () {  
+            router.push("/"); 
+        }, 1000);
     }
     document.addEventListener('keydown', (event) => {   
         switch (event.keyCode) {
@@ -78,6 +80,7 @@
         }
     });
     onMounted(() => {
+        updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
         animationItem()
     });
   </script>
@@ -87,6 +90,9 @@
         align-items: center;
         height: 100vh;
         width: 100%;
+    }
+    .d-none{
+        display: none!important; 
     }
   </style>
   

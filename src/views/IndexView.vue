@@ -49,8 +49,6 @@
     const router = useRouter();
     const items = getItems();
     const wheelSettings = configRulette(); 
-    // <!-- <h1>{{ $route.params.id }}</h1> -->
-    const typeeUser = route.params.id;
     const launchWheel = () => { 
       wheel.value.launchWheel();
     }
@@ -58,10 +56,11 @@
         let question = parseoTexto(evt.name);
         updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm')
         setTimeout(function(){
-          router.push("/question/"+typeeUser+"/" + question);
+          router.push("/question/" + question);
         }, 4000);
     }
     onMounted(() => {
+      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
       getDataFirebase();
     });
 </script>

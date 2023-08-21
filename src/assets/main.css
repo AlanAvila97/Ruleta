@@ -3,8 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
+.visibility-hidden{
+  /* visibility: hidden; */
+}
 .d-none{
-  /* display: none; */
+  /* display: none!important; */
 }
 body {
   background-image: url(https://canalonce.mx/REST/data/images/back_grad_tic.png);
