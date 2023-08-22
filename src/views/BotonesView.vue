@@ -7,6 +7,10 @@
             <button class="btn-actions" type="button" data-status="2" data-numero="ZK0j79ShW7RivQ4b8Pfm">Mostrar / ocultar</button>
             <button class="btn-actions" type="button" data-status="3" data-numero="ZK0j79ShW7RivQ4b8Pfm">Regresar</button>
         </div>
+        <div class="double-question">
+          <h2>Preguntas dobles</h2>
+          <button class="btn-double" type="button" data-status="1" data-numero="ZK0j79ShW7RivQ4b8Pfm">Cambiar</button>
+        </div>
       </section>
     </main>
   </template>
@@ -47,12 +51,23 @@
   .content-buttons{
     display: flex;
     gap: 1rem;
+    padding: 1rem;
     width: 100%;
     height: 100%;
     max-width: 1120px;
-    justify-content: center;
+    justify-content: space-between;
   }
-  .content-buttons .btn-actions{
+  .double-question{
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    max-width: 1120px;
+    flex-direction: column;
+  }
+  .content-buttons .btn-actions,
+  .double-question .btn-double{
     color: #fff;
     cursor: pointer;
     border-radius: 5px;
@@ -66,6 +81,9 @@
   }
   .content-buttons .btn-actions:focus{
     box-shadow: 0px 0px 3px 5px #00000061;
+  }
+  .double-question h2{
+    color: #000;
   }
   </style>
   

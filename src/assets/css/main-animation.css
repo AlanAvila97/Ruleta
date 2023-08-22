@@ -78,6 +78,12 @@ body::after {
   border-radius: 5px;
   padding: 5px;
 }
+.container-questions {
+  /* visibility: hidden; */
+}
+.container-questions .data-categorias :where(div){
+  display: none;
+}
 /*-------------------------------------------------------------
 # Responsive
 --------------------------------------------------------------*/

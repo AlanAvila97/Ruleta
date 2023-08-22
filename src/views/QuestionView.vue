@@ -1,30 +1,21 @@
 <template>
-    <main id="wrapper" class="question">
+    <main id="wrapper" class="question view-question">
         <section class="section-question">
-        <div class="content-question">
-            <div class="container-result">
-            <!-- <h1>{{ $route.params.id }}</h1> -->
-                <div class="element-animation">
-                    <span class="item-animate"></span>
-                </div>
-                <div class="question info" @dblclick="backAdmin">
-                <!-- <div class="question info"> -->
-                    <h1 @click="showAnswer">
-                        ¿Cuál es el modelo atómico que propuso que el átomo era una esfera 
-                        sólida de material con carga positiva con electrones negativos clavados, 
-                        como uvas pasas en una torta o pudín?
-                    </h1>
-                </div>
-                <div class="answer d-none info" data-status="1" @dblclick="backAdmin">
-                    <h1 @click="showAnswer">
-                        Modelo atómico de Thomson
-                    </h1>
+            <div class="content-question">
+                <div class="container-result">
+                <!-- <h1>{{ $route.params.id }}</h1> -->
+                    <div class="element-animation">
+                        <span class="item-animate"></span>
+                    </div>
+                    <div class="question info data-categorias" @click="backAdmin">
+                    </div>
+                    <div class="answer d-none info" data-status="1" @dblclick="backAdmin">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="visibility-hidden">
-            <button class="back-home" @click="backAdmin"></button>
-        </div>
+            <div class="visibility-hidden">
+                <button class="back-home" @click="backAdmin"></button>
+            </div>
         </section>
     </main>
   </template>
@@ -40,7 +31,7 @@
     import { useRuleta } from '../stores/dataRuleta'
     // 
     const dataRuleta = useRuleta();
-    const { showAnswer, updateSimple } = dataRuleta;  
+    const { showAnswer, updateSimple, getDataFirebase, generateQuestions, identicationData } = dataRuleta;  
     // 
     const route = useRoute();
     const router = useRouter();
@@ -62,26 +53,15 @@
             });
     }    
     const backAdmin = () => {
-        setTimeout(function () {  
-            router.push("/"); 
-        }, 1000);
+        // setTimeout(function () {  
+        // }, 1000);
     }
-    document.addEventListener('keydown', (event) => {   
-        switch (event.keyCode) {
-            case 65: 
-                // Letra A  
-                console.log('letra a');
-                showAnswer();
-                break;
-            case 83:
-                // Letra S
-                router.push("/");                
-                break;                
-        }
-    });
     onMounted(() => {
         updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
         animationItem()
+        getDataFirebase();
+        generateQuestions();
+        identicationData(idQuestion);
     });
   </script>
   <style scoped>

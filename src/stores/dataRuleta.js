@@ -32,18 +32,61 @@ export const onGetTasks = (callback) =>
 export const updateTurno=(id,newFields)=>
              updateDoc(doc(db, "jugadas", id), newFields);     
 //  
-const router = useRouter();
 
 export const useRuleta = defineStore('useRuleta', () => {
+    const router = useRouter();
+    /**
+      * @description Funcion que obtiene el json que contiene la infomación de todos los programas
+    */
+    function jsonCategoriasPreguntas(){       
+      var data = $.ajax({ 
+          url: 'https://canalonce.mx/REST/data/mdb/ruleta_temas.json?cache='+$.now(), 
+          async: false
+      });
+      return data.responseJSON;
+    }
+    function jsonPreguntas(){       
+      var data = $.ajax({ 
+          url: 'https://canalonce.mx/REST/data/mdb/ruleta_preguntas.json?cache='+$.now(), 
+          async: false
+      });
+      return data.responseJSON;
+    }
+    const updateStatus = () => {
+      const actualizarTurno = document.querySelectorAll(".btn-actions");      
+            actualizarTurno.forEach((btn) =>
+              btn.addEventListener("click", async ({ target: { dataset } }) => {
+                try {
+                  await updateTurno(dataset.numero, {status: dataset.status});
+                } catch (error) {
+                  console.log(error);
+                }
+              })
+            );
+    }
+    const updateSimple = async(val, numero) => {
+        try {
+          await updateTurno(numero, {status: val});
+        } catch (error) {
+          console.log(error);
+        }
+    }
     const getItems = () => {
-        return [
-            { id: 1, name: "politecnicos_destacados", htmlContent: "Politécnicos <br> Destacados", textColor: "", background: "", },
-            { id: 2, name: "doble_turno", htmlContent: "Doble <br> turno", textColor: "", background: "", },
-            { id: 3, name: "creaciones_politecnicas", htmlContent: "Creaciones <br> Politécnicas", textColor: "'#fff'", background: "#af03ff", },
-            { id: 4, name: "instituciones_ipn", htmlContent: "Instituciones del <br> IPN", textColor: "", background: "", },
-            { id: 5, name: "turno_sorpresa", htmlContent: "Turno <br> sorpresa", textColor: "", background: "", },
-            { id: 6, name: "pierde_turno", htmlContent: "Pierde un <br> turno", textColor: "", background: "", },
-        ];
+      let dataCategorias = jsonCategoriasPreguntas();
+      let categorias = [];
+      dataCategorias.forEach((element, key) => {
+        let slug = element.name.replaceAll('<br>', '-');
+            slug = parseoTexto(slug);
+            categorias.push({
+                              id: key,
+                              name:  slug,
+                              htmlContent: element.name,
+                              textColor: '',
+                              background: '',
+                            });
+      });
+      
+      return categorias;
     }
     const configRulette = () => {
         return {
@@ -52,7 +95,7 @@ export const useRuleta = defineStore('useRuleta', () => {
                     size: 550,
                     displayShadow: true,
                     duration: 6,
-                    resultVariation: 90,
+                    resultVariation: 9,
                     easing: "ease",
                     counterClockwise: true,
                     horizontalContent: false,
@@ -113,51 +156,42 @@ export const useRuleta = defineStore('useRuleta', () => {
       );
       return outString;
     }
-    const showAnswer = () => {
-      let elements = document.querySelectorAll('.container-result .info');
-      let answer = getElementByClass(`answer`);
-      let question = getElementByClass(`container-result .question`);
-      elements.forEach(ele => {        
-          ele.classList.add('d-none');
-      });
-      if(answer.dataset.status == 1 ){
-          answer.dataset.status = 0;        
-          answer.classList.remove('d-none');
-      }else{
-          answer.dataset.status = 1;        
-          question.classList.remove('d-none');
-      }
-      setTimeout(updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm') , 1000);
-    }
+
     const getElementByClass = (element) => {
       return document.querySelector(`.${element}`)
     }
     const backAdmin = () => {
-      let backHome = getElementByClass(`back-home`);   
       updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
-      backHome.click();
-      console.log(); 
-      // cl
-      // if(!backHome){
-      // }
+      router.push("/"); 
     }
     const getDataFirebase = () => {
       onGetTasks((querySnapshot) => {
         let action = getElementByClass(`action-user`);    
-        let ruleta = getElementByClass(`ruleta-prueba`);    
-        
-        // hamburger.addEventListener("click", change);
+        let ruleta = getElementByClass(`ruleta-prueba`);  
+        let url = window.location.href;  
+        let statusUrl = comprobationURL(url);
+        // 
         querySnapshot.forEach((doc) => {
           const turnos = doc.data();
           action.value = turnos.status;
           switch (turnos.status) {
             case '1':
-              ruleta.click();
+              if(getElementByClass(`index`) != null){
+                ruleta.click();
+              }
+              break;
             case '2':
+              let s = document.querySelector('body .view-question');
+              if(s != null){
                 showAnswer();
+              }
               break;
             case '3':
+              let a = document.querySelector('body .view-question');
+              if(a != null){
+                console.log('as');
                 backAdmin();
+              }
               break;          
             default:
               break;
@@ -165,26 +199,103 @@ export const useRuleta = defineStore('useRuleta', () => {
         });
       });
     }
-    
-    const updateStatus = () => {
-      const actualizarTurno = document.querySelectorAll(".btn-actions");      
-            actualizarTurno.forEach((btn) =>
-              btn.addEventListener("click", async ({ target: { dataset } }) => {
-                try {
-                  await updateTurno(dataset.numero, {status: dataset.status});
-                } catch (error) {
-                  console.log(error);
-                }
-              })
-            );
-    }
-    const updateSimple = async(val, numero) => {
-        try {
-          await updateTurno(numero, {status: val});
-        } catch (error) {
-          console.log(error);
+    const comprobationURL = (url) =>{
+      let neURL = url.split('/');
+      let status = true;
+      neURL.forEach(ele => {
+        if(ele === 'botones'){
+          status = false;
         }
+      });
+      return status;
+    }
+    const generateQuestions = () => {
+      let questions = jsonPreguntas();
+      let categories = generateCategorias();
+      var data = [], info = [], html = '', items = '';    
+      var i = 0;
+      let content = document.createElement('div');
+          categories.forEach(element => {
+            if(questions[element] != undefined){
+              localStorage.setItem(element, JSON.stringify(questions[element]));                  
+            }
+          });
+    }
+    const identicationData = (slug) => {
+      let data = [], html = "", answer="",  i = 0;    
+      let response = JSON.parse(localStorage.getItem(slug));
+          response.forEach((val, key) => {
+              if(key != 0){
+                data.push(val)
+              }
+              if(i === 0){
+                html += '<h1 class="" id="question-'+val.id+'">'+val.pregunta+'</h1>'
+                answer += '<h1 class="" id="answer-'+val.id+'">'+val.respuesta+'</h1>';  
+              }
+              i++;
+          });
+      $('.container-result .data-categorias').append(html);
+      $('.container-result .answer').append(answer);
+      updateCategorie(data, slug);
+    }
+    const showAnswer = () => {
+      let contentQuestion = $('.container-result .info');
+      let answer = $(`.container-result .answer`);
+      let question = $(`.container-result .data-categorias`);
+      $(contentQuestion).addClass('d-none');
+      if($(answer).attr('data-status') == 1 ){
+          $(answer).attr('data-status', 0);
+          $(answer).removeClass('d-none');
+      }else{
+        $(answer).attr('data-status', 1);
+        $(question).removeClass('d-none');
+      }
+      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+    }
+    const updateCategorie = (data, slug) => {
+      localStorage.setItem(slug, JSON.stringify(data));    
+      console.log(JSON.parse(localStorage.getItem(slug)));
+    }
+    const generateCategorias = () => {
+      let data = []
+      let categorias = jsonCategoriasPreguntas();
+          categorias.forEach(element => {
+            let val = element.name.replaceAll('<br>', '-');
+                val = parseoTexto(val);
+            if(val != 'pierde-un-turno') { 
+              data.push(val);
+            }
+          });
+      return data;
+    }
+    /**
+      * @description Funcion que elimina los registros duplicados de un array
+      * @param originalArray Contiene el array principal
+      * @param prop Nombre de la seccion del array que se quiere eliminar el duplicado
+      * @return {newArray} Retorna un array sin elementos repetidos
+    */ 
+    function removeDuplicates(originalArray, prop) {
+      var newArray = [];
+      var lookupObject  = {};  
+      for(var i in originalArray) {
+        lookupObject[originalArray[i][prop]] = originalArray[i];
+      }
+      for(i in lookupObject) {
+          newArray.push(lookupObject[i]);
+      }
+      return newArray;
     }
     // const parser
-    return { getItems, configRulette, parseoTexto, showAnswer, getDataFirebase, getElementByClass, updateStatus, updateSimple }
+    return { 
+      getItems, 
+      configRulette, 
+      parseoTexto, 
+      showAnswer, 
+      getDataFirebase, 
+      getElementByClass, 
+      updateStatus, 
+      updateSimple,
+      generateQuestions,
+      identicationData,
+    }
 })

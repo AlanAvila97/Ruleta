@@ -7,7 +7,10 @@
   /* visibility: hidden; */
 }
 .d-none{
-  /* display: none!important; */
+  display: none!important;
+}
+.d-block{
+  display: block!important;
 }
 body {
   background-image: url(https://canalonce.mx/REST/data/images/back_grad_tic.png);

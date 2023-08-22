@@ -1,13 +1,18 @@
 <script setup>
+  // Vue
+  import { onMounted } from "vue";
   // Components 
   import InputsUsers from './components/InputsUsers.vue';
   // Pinia
   import { useRuleta } from './stores/dataRuleta'
   // 
   const dataRuleta = useRuleta();
-  const { updateSimple } = dataRuleta;  
+  const { updateSimple, generateQuestions } = dataRuleta;  
   // 
-  updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+  onMounted(() => {
+      generateQuestions();
+      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+  });
 </script>
 <template>
   <InputsUsers></InputsUsers>
