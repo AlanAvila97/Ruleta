@@ -31,7 +31,7 @@
     import { useRuleta } from '../stores/dataRuleta'
     // 
     const dataRuleta = useRuleta();
-    const { showAnswer, updateSimple, getDataFirebase, generateQuestions, identicationData } = dataRuleta;  
+    const { updateSimple, getDataFirebase, generateQuestions, identicationData } = dataRuleta;  
     // 
     const route = useRoute();
     const router = useRouter();

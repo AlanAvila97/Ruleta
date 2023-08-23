@@ -56,7 +56,7 @@
     const wheelEndedCallback = (evt) => {
         let question = parseoTexto(evt.name);
         updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
-        if(question != 'pierde-un-turno'){
+        if(question != 'pierde-el-turno'){
           setTimeout(function(){
             router.push("/question/" + question);
           }, 3500);
