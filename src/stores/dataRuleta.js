@@ -89,7 +89,7 @@ export const useRuleta = defineStore('useRuleta', () => {
         return {
                     centeredIndicator: true,
                     indicatorPosition: "top",
-                    size: 550,
+                    size: 420,
                     displayShadow: true,
                     duration: 6,
                     resultVariation: 9,

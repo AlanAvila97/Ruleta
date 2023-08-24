@@ -20,7 +20,7 @@ body::after {
 }
 .section-question .content-question .container-result {
   width: 80%;
-  height: 550px;
+  height: 70vh;
   background-image: url(/src/assets/image/cbeb-transformed.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
