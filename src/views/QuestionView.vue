@@ -1,5 +1,6 @@
 <template>
     <main id="wrapper" class="question view-question">
+        <BotonesBack></BotonesBack>
         <section class="section-question">
             <div class="content-question">
                 <div class="container-result">
@@ -7,21 +8,25 @@
                     <div class="element-animation">
                         <span class="item-animate"></span>
                     </div>
-                    <div class="question info data-categorias" @click="backAdmin">
+                    <div class="question info data-categorias">
                     </div>
-                    <div class="answer d-none info" data-status="1" @dblclick="backAdmin">
+                    <div class="answer d-none info" data-status="1">
                     </div>
                 </div>
             </div>
             <div class="visibility-hidden">
-                <button class="back-home" @click="backAdmin"></button>
+                <button class="back-home"></button>
             </div>
         </section>
+        <ContentAnswerHidden></ContentAnswerHidden>
     </main>
   </template>
   <script setup>
     // Css
     import '@/assets/css/main-animation.css'
+    // Components 
+    import BotonesBack from '../components/BotonesBack.vue';
+    import ContentAnswerHidden from '../components/ContentAnswerHidden.vue';
     // 
     import anime from 'animejs/lib/anime.es.js';    
     // vue
@@ -53,16 +58,16 @@
             });
     }    
     const backAdmin = () => {
-        // setTimeout(function () {  
-        // }, 1000);
+        // updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+        // router.push("/"); 
     }
     onMounted(() => {
-        updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
         animationItem()
-        getDataFirebase();
         generateQuestions();
         identicationData(idQuestion);
     });
+    updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+    getDataFirebase();
   </script>
   <style scoped>
     #wrapper {

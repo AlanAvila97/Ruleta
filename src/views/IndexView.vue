@@ -28,7 +28,7 @@
           <div class="arrow-roullete" v-html="wheelSettings.baseHtmlContent" />
         </template>
       </Roulette>
-
+      <BotonGirar></BotonGirar>
     </section>
   </main>
 </template>
@@ -36,6 +36,8 @@
     // vue
     import { ref, onMounted, computed } from "vue"
     import { useRoute, useRouter } from "vue-router";
+    // Components 
+    import BotonGirar from '../components/BotonGirar.vue';
     // Roullete
     import { Roulette } from "vue3-roulette";
     // Pinia
@@ -55,17 +57,15 @@
     }
     const wheelEndedCallback = (evt) => {
         let question = parseoTexto(evt.name);
-        updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
-        if(question != 'pierde-el-turno'){
+        updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');        
+        if(question != 'pierde-el-turno' && question != "doble-turno"){
           setTimeout(function(){
             router.push("/question/" + question);
           }, 3500);
         }
     }
-    onMounted(() => {
-      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
-      getDataFirebase();
-    });
+    updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+    getDataFirebase();
 </script>
 <style scoped>
 #wrapper {

@@ -8,7 +8,7 @@
             <button class="btn-actions" :class="(typeeUser != 1) ? 'd-none': ''"
                     type="button" data-status="3" data-numero="ZK0j79ShW7RivQ4b8Pfm">Regresar</button>
         </div>
-        <div class="double-question" :class="(typeeUser != 1) ? 'd-none': ''">
+        <div class="double-question d-none" :class="(typeeUser != 1) ? 'd-none': ''">
           <h2>Preguntas dobles</h2>
           <button class="btn-double" type="button" data-status="1" data-numero="ZK0j79ShW7RivQ4b8Pfm">Cambiar</button>
         </div>
@@ -33,10 +33,10 @@
     const items = getItems();
     const wheelSettings = configRulette(); 
     const typeeUser = route.params.user;
-    onMounted(() => {
-      getDataFirebase();
-      updateStatus();
-    });
+
+    getDataFirebase();
+    updateStatus();
+
 </script>
 <style scoped>
   #wrapper {

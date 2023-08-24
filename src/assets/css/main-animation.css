@@ -11,7 +11,7 @@ body::after {
   height: 100%;
 }
 .section-question .content-question {
-  padding: 2rem;
+  padding: 0rem 2rem;
   height: 100%;
   width: 100%;
   display: flex;
@@ -20,7 +20,7 @@ body::after {
 }
 .section-question .content-question .container-result {
   width: 80%;
-  height: 600px;
+  height: 550px;
   background-image: url(/src/assets/image/cbeb-transformed.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;

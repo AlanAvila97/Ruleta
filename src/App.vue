@@ -7,12 +7,10 @@
   import { useRuleta } from './stores/dataRuleta'
   // 
   const dataRuleta = useRuleta();
-  const { updateSimple, generateQuestions } = dataRuleta;  
+  const { updateSimple, generateQuestions,  } = dataRuleta;  
   // 
-  onMounted(() => {
-      generateQuestions();
-      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
-  });
+  generateQuestions();
+  updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
 </script>
 <template>
   <InputsUsers></InputsUsers>

@@ -4,7 +4,8 @@
   box-sizing: border-box;
 }
 .visibility-hidden{
-  /* visibility: hidden; */
+  visibility: hidden;
+  height: 0;
 }
 .d-none{
   display: none!important;

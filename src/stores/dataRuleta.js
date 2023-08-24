@@ -53,16 +53,7 @@ export const useRuleta = defineStore('useRuleta', () => {
       return data.responseJSON;
     }
     const updateStatus = () => {
-      const actualizarTurno = document.querySelectorAll(".btn-actions");      
-            actualizarTurno.forEach((btn) =>
-              btn.addEventListener("click", async ({ target: { dataset } }) => {
-                try {
-                  await updateTurno(dataset.numero, {status: dataset.status});
-                } catch (error) {
-                  console.log(error);
-                }
-              })
-            );
+      $("body .section-roulette .content-buttons .btn-actions").click();
     }
     const updateSimple = async(val, numero) => {
         try {
@@ -70,6 +61,13 @@ export const useRuleta = defineStore('useRuleta', () => {
         } catch (error) {
           console.log(error);
         }
+    }
+    const changeUserSimple = async(val, numero) => {
+      try {
+        await updateTurno(numero, {status: val});
+      } catch (error) {
+        console.log(error);
+      }
     }
     const getItems = () => {
       let dataCategorias = jsonCategoriasPreguntas();
@@ -85,7 +83,6 @@ export const useRuleta = defineStore('useRuleta', () => {
                               background: '',
                             });
       });
-      
       return categorias;
     }
     const configRulette = () => {
@@ -156,7 +153,6 @@ export const useRuleta = defineStore('useRuleta', () => {
       );
       return outString;
     }
-
     const getElementByClass = (element) => {
       return document.querySelector(`.${element}`)
     }
@@ -166,6 +162,7 @@ export const useRuleta = defineStore('useRuleta', () => {
     }
     const getDataFirebase = () => {
       onGetTasks((querySnapshot) => {
+        let user = getElementByClass(`actual-user`);    
         let action = getElementByClass(`action-user`);    
         let ruleta = getElementByClass(`ruleta-prueba`);  
         let url = window.location.href;  
@@ -189,7 +186,6 @@ export const useRuleta = defineStore('useRuleta', () => {
             case '3':
               let a = document.querySelector('body .view-question');
               if(a != null){
-                console.log('as');
                 backAdmin();
               }
               break;          
@@ -214,7 +210,6 @@ export const useRuleta = defineStore('useRuleta', () => {
       let categories = generateCategorias();
       var data = [], info = [], html = '', items = '';    
       var i = 0;
-      let content = document.createElement('div');
           categories.forEach(element => {
             if(questions[element] != undefined){
               localStorage.setItem(element, JSON.stringify(questions[element]));                  
@@ -223,6 +218,10 @@ export const useRuleta = defineStore('useRuleta', () => {
     }
     const identicationData = (slug) => {
       let data = [], html = "", answer="",  i = 0;    
+      let elementQuestion = $('body .section-question .content-question .container-result .data-categorias');
+      let elementAnswer = $('body .section-question .content-question .container-result .answer');
+      let elementAnswerHidden = $('body #wrapper .content-hidden-answer h3');
+      // 
       let response = JSON.parse(localStorage.getItem(slug));
           response.forEach((val, key) => {
               if(key != 0){
@@ -234,9 +233,14 @@ export const useRuleta = defineStore('useRuleta', () => {
               }
               i++;
           });
-      $('.container-result .data-categorias').append(html);
-      $('.container-result .answer').append(answer);
-      updateCategorie(data, slug);
+      // 
+          elementQuestion.html('');
+          elementQuestion.append(html);
+          // 
+          elementAnswer.html('');
+          elementAnswer.append(answer);
+          elementAnswerHidden.html(answer);
+          updateCategorie(data, slug);
     }
     const showAnswer = () => {
       let contentQuestion = $('.container-result .info');
@@ -254,7 +258,7 @@ export const useRuleta = defineStore('useRuleta', () => {
     }
     const updateCategorie = (data, slug) => {
       localStorage.setItem(slug, JSON.stringify(data));    
-      console.log(JSON.parse(localStorage.getItem(slug)));
+      // console.log(JSON.parse(localStorage.getItem(slug)));
     }
     const generateCategorias = () => {
       let data = []
@@ -268,23 +272,40 @@ export const useRuleta = defineStore('useRuleta', () => {
           });
       return data;
     }
-    /**
-      * @description Funcion que elimina los registros duplicados de un array
-      * @param originalArray Contiene el array principal
-      * @param prop Nombre de la seccion del array que se quiere eliminar el duplicado
-      * @return {newArray} Retorna un array sin elementos repetidos
-    */ 
-    function removeDuplicates(originalArray, prop) {
-      var newArray = [];
-      var lookupObject  = {};  
-      for(var i in originalArray) {
-        lookupObject[originalArray[i][prop]] = originalArray[i];
+
+    $("body").on("click", ".content-btn-back", function(){
+      updateSimple('3', 'ZK0j79ShW7RivQ4b8Pfm');
+    });
+    $("body").on("click", ".btn-girar .girar", function(){
+      updateSimple('1', 'ZK0j79ShW7RivQ4b8Pfm');
+    });
+    $("body").on("click", ".btn-clean-storage .clean", function(){
+      localStorage.clear(); 
+      console.log(localStorage);         
+    });
+    $("body").on("click", ".content-btn-mostrar", function(){
+      let contentQuestion = $('.container-result .info');
+      let answer = $(`.container-result .answer`);
+      let question = $(`.container-result .data-categorias`);
+      $(contentQuestion).addClass('d-none');
+      if($(answer).attr('data-status') == 1 ){
+          $(answer).attr('data-status', 0);
+          $(answer).removeClass('d-none');
+      }else{
+        $(answer).attr('data-status', 1);
+        $(question).removeClass('d-none');
       }
-      for(i in lookupObject) {
-          newArray.push(lookupObject[i]);
-      }
-      return newArray;
-    }
+      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
+    });
+    $("body").on("click", ".btn-actions", async function(){
+        let numero = $(this).attr('data-numero');
+        let status = $(this).attr('data-status');
+        try {
+          await updateTurno(numero, {status: status});
+        } catch (error) {
+          console.log(error);
+        }
+    }); 
     // const parser
     return { 
       getItems, 
