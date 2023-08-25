@@ -40,14 +40,14 @@ export const useRuleta = defineStore('useRuleta', () => {
     */
     function jsonCategoriasPreguntas(){       
       var data = $.ajax({ 
-          url: 'https://canalonce.mx/REST/data/mdb/ruleta_temas.json?cache='+$.now(), 
+          url: 'https://admino.fabricaapps.com/rest/ruleta_temas?cache='+$.now(), 
           async: false
       });
       return data.responseJSON;
     }
     function jsonPreguntas(){       
       var data = $.ajax({ 
-          url: 'https://canalonce.mx/REST/data/mdb/ruleta_preguntas.json?cache='+$.now(), 
+          url: 'https://admino.fabricaapps.com/rest/ruleta_preguntas?cache='+$.now(), 
           async: false
       });
       return data.responseJSON;
@@ -89,10 +89,10 @@ export const useRuleta = defineStore('useRuleta', () => {
         return {
                     centeredIndicator: true,
                     indicatorPosition: "top",
-                    size: 420,
+                    size: 550,
                     displayShadow: true,
                     duration: 6,
-                    resultVariation: 9,
+                    resultVariation: 100,
                     easing: "ease",
                     counterClockwise: true,
                     horizontalContent: false,
@@ -210,11 +210,18 @@ export const useRuleta = defineStore('useRuleta', () => {
       let categories = generateCategorias();
       var data = [], info = [], html = '', items = '';    
       var i = 0;
+      let storage = allStorage();
           categories.forEach(element => {
             if(questions[element] != undefined){
-              localStorage.setItem(element, JSON.stringify(questions[element]));                  
+              if(storage.length < 1){
+                console.log('menor');
+                localStorage.setItem(element, JSON.stringify(questions[element]));                  
+              }else{
+                console.log('mayor');
+              }
             }
           });
+      // localStorage.clear();
     }
     const identicationData = (slug) => {
       let data = [], html = "", answer="",  i = 0;    
@@ -233,7 +240,7 @@ export const useRuleta = defineStore('useRuleta', () => {
               }
               i++;
           });
-      // 
+          // 
           elementQuestion.html('');
           elementQuestion.append(html);
           // 
@@ -241,6 +248,12 @@ export const useRuleta = defineStore('useRuleta', () => {
           elementAnswer.append(answer);
           elementAnswerHidden.html(answer);
           updateCategorie(data, slug);
+    }
+    function allStorage() {
+        var values = [],
+            keys = Object.keys(localStorage),
+            i = keys.length;
+        return keys;
     }
     const showAnswer = () => {
       let contentQuestion = $('.container-result .info');
@@ -257,8 +270,9 @@ export const useRuleta = defineStore('useRuleta', () => {
       updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
     }
     const updateCategorie = (data, slug) => {
-      localStorage.setItem(slug, JSON.stringify(data));    
-      // console.log(JSON.parse(localStorage.getItem(slug)));
+      localStorage.setItem(slug, JSON.stringify(data)); 
+      console.log(slug);
+      console.log(JSON.parse(localStorage.getItem(slug)));
     }
     const generateCategorias = () => {
       let data = []
@@ -272,30 +286,20 @@ export const useRuleta = defineStore('useRuleta', () => {
           });
       return data;
     }
-
-    $("body").on("click", ".content-btn-back", function(){
-      updateSimple('3', 'ZK0j79ShW7RivQ4b8Pfm');
-    });
+    const hidenQuestion = () =>{
+      let contentQuestion = $('.container-result .info');
+      let answer = $(`.container-result .answer`);
+      let question = $(`.container-result .data-categorias`);
+      $(contentQuestion).addClass('d-none');
+      $(question).removeClass('d-none');
+      $(answer).addClass('d-none');
+    }
     $("body").on("click", ".btn-girar .girar", function(){
       updateSimple('1', 'ZK0j79ShW7RivQ4b8Pfm');
     });
     $("body").on("click", ".btn-clean-storage .clean", function(){
       localStorage.clear(); 
       console.log(localStorage);         
-    });
-    $("body").on("click", ".content-btn-mostrar", function(){
-      let contentQuestion = $('.container-result .info');
-      let answer = $(`.container-result .answer`);
-      let question = $(`.container-result .data-categorias`);
-      $(contentQuestion).addClass('d-none');
-      if($(answer).attr('data-status') == 1 ){
-          $(answer).attr('data-status', 0);
-          $(answer).removeClass('d-none');
-      }else{
-        $(answer).attr('data-status', 1);
-        $(question).removeClass('d-none');
-      }
-      updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
     });
     $("body").on("click", ".btn-actions", async function(){
         let numero = $(this).attr('data-numero');

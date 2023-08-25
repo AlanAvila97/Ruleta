@@ -1,5 +1,8 @@
 <template>
     <div class="content-btn-ruleta">
+        <div class="btn-reload" @click="reloadWindow">
+            <button class="reload">Recargar</button>
+        </div>
         <div class="btn-girar">
             <button class="girar">Girar</button>
         </div>
@@ -9,6 +12,9 @@
     </div>    
 </template>
 <script setup>
+    const reloadWindow = () => {
+        location.reload()
+    }
 </script>
 
 <style scoped>
@@ -20,13 +26,18 @@
         z-index: 1;
         width: 100%;
     }
-    .content-btn-ruleta .btn-girar{
-        width: 50%;
+    .content-btn-ruleta .btn-reload{
+        width: 33%;
         display: flex;
-        justify-content: flex-end;
+        justify-content: flex-start;
+    }
+    .content-btn-ruleta .btn-girar{
+        width: 33%;
+        display: flex;
+        justify-content: center;
     }
     .content-btn-ruleta .btn-clean-storage{
-        width: 50%;
+        width: 33%;
         display: flex;
         justify-content: flex-end;
     }

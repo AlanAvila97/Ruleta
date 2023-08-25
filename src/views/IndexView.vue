@@ -47,6 +47,7 @@
     const { getItems, configRulette, parseoTexto, getDataFirebase, updateSimple } = dataRuleta;  
     // 
     const wheel = ref(null);
+    let i = ref(null);
     const route = useRoute();
     const router = useRouter();
     const items = getItems();
@@ -54,6 +55,7 @@
     const launchWheel = () => { 
       wheel.value.launchWheel();
       updateSimple('1', 'ZK0j79ShW7RivQ4b8Pfm');
+      console.log();
     }
     const wheelEndedCallback = (evt) => {
         let question = parseoTexto(evt.name);
@@ -61,7 +63,7 @@
         if(question != 'pierde-el-turno' && question != "doble-turno"){
           setTimeout(function(){
             router.push("/question/" + question);
-          }, 3500);
+          }, 500);
         }
     }
     updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');

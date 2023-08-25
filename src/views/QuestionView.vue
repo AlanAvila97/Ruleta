@@ -40,9 +40,8 @@
     // 
     const route = useRoute();
     const router = useRouter();
-
     const idQuestion = route.params.id;
-
+    // 
     const animationItem = () =>{
         anime({
                 targets: '.item-animate',
