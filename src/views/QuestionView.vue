@@ -64,6 +64,7 @@
         animationItem()
         generateQuestions();
         identicationData(idQuestion);
+        $(`.container-result .data-categorias`).removeClass('d-none')
     });
     updateSimple('0', 'ZK0j79ShW7RivQ4b8Pfm');
     getDataFirebase();

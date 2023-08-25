@@ -44,9 +44,9 @@
       let answer = $(`.container-result .answer`);
       let question = $(`.container-result .data-categorias`);
       $(contentQuestion).addClass('d-none');
-      $(question).removeClass('d-none');
+    //   $(question).removeClass('d-none');
       $(answer).attr('data-status', 1);
-      $(answer).addClass('d-none');
+    //   $(answer).addClass('d-none');
     }
 </script>
 
