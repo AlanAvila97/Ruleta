@@ -2,6 +2,7 @@
   <main id="wrapper" class="bg-home index">
     <section class="section-roulette">
       <Roulette
+        v-if="wheelActive"
         ref="wheel"
         class="ruleta-prueba"
         :items="items"
@@ -47,15 +48,22 @@
     const { getItems, configRulette, parseoTexto, getDataFirebase, updateSimple } = dataRuleta;  
     // 
     const wheel = ref(null);
+    const wheelActive = ref(true);
     let i = ref(null);
     const route = useRoute();
     const router = useRouter();
     const items = getItems();
     const wheelSettings = configRulette(); 
+    console.log(wheel);
     const launchWheel = () => { 
       wheel.value.launchWheel();
       updateSimple('1', 'ZK0j79ShW7RivQ4b8Pfm');
-      console.log();
+    }
+    const onHardReset = () => {
+      wheelActive.value = false;
+      setTimeout(() => {
+        wheelActive.value = true;
+      }, 100);            
     }
     const wheelEndedCallback = (evt) => {
         let question = parseoTexto(evt.name);
@@ -63,6 +71,10 @@
         if(question != 'pierde-el-turno' && question != "doble-turno"){
           setTimeout(function(){
             router.push("/question/" + question);
+          }, 500);
+        }else{
+          setTimeout(function(){
+            onHardReset();
           }, 500);
         }
     }
