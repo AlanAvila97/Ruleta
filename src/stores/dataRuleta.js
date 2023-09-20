@@ -15,13 +15,13 @@ import {
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDfwhQxayx6NsxEkU29MFLOwdTR5KRSF9k",
-  authDomain: "ruletacachi.firebaseapp.com",
-  projectId: "ruletacachi",
-  storageBucket: "ruletacachi.appspot.com",
-  messagingSenderId: "75302928452",
-  appId: "1:75302928452:web:d2e4e51e32ec392aaa3c11",
-  measurementId: "G-8R9HTST71G"
+  apiKey: "AIzaSyA8HWcarCoCacudf-SZ9HnG8COY6tpcCJY",
+  authDomain: "cachiporra-ruleta.firebaseapp.com",
+  projectId: "cachiporra-ruleta",
+  storageBucket: "cachiporra-ruleta.appspot.com",
+  messagingSenderId: "339058061338",
+  appId: "1:339058061338:web:f296c1f824dbcec9dd21a3",
+  measurementId: "G-HLCHP05J2K"
 };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
