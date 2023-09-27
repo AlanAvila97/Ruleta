@@ -247,7 +247,23 @@ export const useRuleta = defineStore('useRuleta', () => {
           elementAnswer.html('');
           elementAnswer.append(answer);
           elementAnswerHidden.html(answer);
-          updateCategorie(data, slug);
+          if(data.length == 0){
+            alert('Las preguntas se acabaron, procederemos a reiniciarlas.')
+            resetQuestion(slug);
+          }else{
+            updateCategorie(data, slug);
+          }
+    }
+    function resetQuestion(slug) {
+      let categories = generateCategorias();
+      let questions = jsonPreguntas();
+      categories.forEach(element => {
+        if(element === slug){
+          if(questions[element] != undefined){
+            localStorage.setItem(element, JSON.stringify(questions[element]));                  
+          }
+        }        
+      });
     }
     function allStorage() {
         var values = [],

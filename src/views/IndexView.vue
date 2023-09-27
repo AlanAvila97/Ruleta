@@ -54,7 +54,6 @@
     const router = useRouter();
     const items = getItems();
     const wheelSettings = configRulette(); 
-    console.log(wheel);
     const launchWheel = () => { 
       wheel.value.launchWheel();
       updateSimple('1', 'ZK0j79ShW7RivQ4b8Pfm');
