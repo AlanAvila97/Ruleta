@@ -14,14 +14,23 @@ import {
   updateDoc,
 } from "https://www.gstatic.com/firebasejs/9.6.2/firebase-firestore.js";
 // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyA8HWcarCoCacudf-SZ9HnG8COY6tpcCJY",
+//   authDomain: "cachiporra-ruleta.firebaseapp.com",
+//   projectId: "cachiporra-ruleta",
+//   storageBucket: "cachiporra-ruleta.appspot.com",
+//   messagingSenderId: "339058061338",
+//   appId: "1:339058061338:web:f296c1f824dbcec9dd21a3",
+//   measurementId: "G-HLCHP05J2K"
+// };
 const firebaseConfig = {
-  apiKey: "AIzaSyA8HWcarCoCacudf-SZ9HnG8COY6tpcCJY",
-  authDomain: "cachiporra-ruleta.firebaseapp.com",
-  projectId: "cachiporra-ruleta",
-  storageBucket: "cachiporra-ruleta.appspot.com",
-  messagingSenderId: "339058061338",
-  appId: "1:339058061338:web:f296c1f824dbcec9dd21a3",
-  measurementId: "G-HLCHP05J2K"
+  apiKey: "AIzaSyCxkvPFEH-Xtl5UHN4Q_BJ9wUyAdcfmx0w",
+  authDomain: "rult-9f9a9.firebaseapp.com",
+  projectId: "rult-9f9a9",
+  storageBucket: "rult-9f9a9.appspot.com",
+  messagingSenderId: "236005822566",
+  appId: "1:236005822566:web:094ac065bc065041289da7",
+  measurementId: "G-21E7MT1C9J"
 };
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
