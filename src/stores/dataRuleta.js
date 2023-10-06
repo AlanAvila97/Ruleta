@@ -259,7 +259,7 @@ export const useRuleta = defineStore('useRuleta', () => {
           elementAnswer.append(answer);
           elementAnswerHidden.html(answer);
           if(data.length == 0){
-            alert('Las preguntas se acabaron, procederemos a reiniciarlas.')
+            alert('Las preguntas se acabaron, procederemos a reiniciarlas en el siguiente tiro.')
             resetQuestion(slug);
           }else{
             updateCategorie(data, slug);
