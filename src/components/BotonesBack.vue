@@ -1,6 +1,9 @@
 <template>
     <div class="content-btn-back" @click="clickBack">
         <button class="">REGRESAR</button>
+        <div class="container-contador">
+            <h2>122</h2>
+        </div>
     </div>    
     <div class="content-btn-mostrar" @click="clickBtnShow">
         <button class="">MOSTRAR</button>
@@ -78,4 +81,16 @@
         font-size: calc(0.5rem + 0.5vw);
     }
 
+    .container-contador{
+        color: #fff;
+        cursor: pointer;
+        border-radius: 5px;
+        border: 1px solid #fff;
+        background: rgba(252, 71, 162, 1);
+        padding: 1rem;
+        width: 50px;
+        height: 50px;
+        max-height: 200px;
+        font-size: 0.5rem;
+    }
 </style>

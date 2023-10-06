@@ -19,9 +19,7 @@
             </div>
         </section>
         <ContentAnswerHidden></ContentAnswerHidden>
-        <div class="container-contador">
-            <h2>122</h2>
-        </div>
+
     </main>
   </template>
   <script setup>
@@ -81,20 +79,6 @@
     }
     .d-none{
         display: none!important; 
-    }
-    .container-contador{
-        color: #fff;
-        cursor: pointer;
-        border-radius: 5px;
-        border: 1px solid #fff;
-        background: rgba(252, 71, 162, 1);
-        padding: 1rem;
-        width: 50px;
-        height: 50px;
-        max-height: 200px;
-        font-size: 0.5rem;
-        position: absolute;
-        top: 0;
     }
   </style>
   
